@@ -3,10 +3,8 @@
   become: yes
   tasks:
   - name: installing redis rpm
-    asible.builtin.yum:
-      name: https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
-      state: insatalled
-      
+    asible.builtin.shell:  https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
+
   - name: module to enable
     ansible.builtin.shell: yum module enable redis:remi-6.2 -y
   

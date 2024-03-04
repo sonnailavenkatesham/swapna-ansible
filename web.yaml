@@ -28,4 +28,13 @@
       src: https://roboshop-builds.s3.amazonaws.com/web.zip
       dest: /usr/share/nginx/html/
       remote_src: yes
-  
+
+  - name: Copying roboshop conf
+    ansible.builtin.copy:
+      src: roboshop.conf
+      dest: /etc/nginx/default.d/roboshop.conf 
+
+  - name: restarting nginx
+    ansible.builtin.service:
+      name: nginx
+      state: restarted

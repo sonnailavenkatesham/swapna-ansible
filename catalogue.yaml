@@ -58,7 +58,7 @@
       state: installed
   
   - name: conneting monogdb host
-    ansible.builtin.shell: mongo --host 54.234.156.134 < /app/schema/catalogue.js
+    ansible.builtin.shell: mongo --host 172.31.30.92 </app/schema/catalogue.js
   
 
 

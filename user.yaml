@@ -27,7 +27,9 @@
   
   - name: npm installing
     ansible.builtin.shell: npm install 
-
+    args:
+    chdir: /app
+    
   - name: coping user service
     ansible.builtin.copy:
       src: user.service

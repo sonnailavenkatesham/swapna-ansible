@@ -38,7 +38,7 @@
   - name: daemon reloading
     ansible.builtin.systemd_service:
       name: user
-      state: reload
+      state: reloaded
       ignore_errors: true
 
   - name: enable and statring user

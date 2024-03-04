@@ -27,6 +27,7 @@
 
   - name: npm isntalling
     ansible.builtin.shell: npm install 
+      path: /app
 
   - name: copy mongo repo
     ansible.builtin.copy:

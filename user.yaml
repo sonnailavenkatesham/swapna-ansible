@@ -28,7 +28,7 @@
   - name: npm installing
     ansible.builtin.shell: npm install
     args:
-      chdir: app/
+      chdir: /app
     
   - name: coping user service
     ansible.builtin.copy:

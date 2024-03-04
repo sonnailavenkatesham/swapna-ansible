@@ -28,7 +28,7 @@
   - name: npm isntalling
     ansible.builtin.shell: npm install
     args: 
-      - name: npm isntalling
+  - name: npm installing
     ansible.builtin.shell: npm install
     args: 
      chdir: /app

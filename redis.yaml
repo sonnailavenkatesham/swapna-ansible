@@ -3,7 +3,7 @@
   become: yes
   tasks:
   - name: installing redis rpm
-    ansible.builtin.shell:
+    ansible.builtin.yum:
       name: https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
       state: insatalled
 

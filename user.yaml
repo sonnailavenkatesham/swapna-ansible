@@ -25,10 +25,13 @@
       dest: /app
       remote_src: yes
   
-  - name: npm installing
-    ansible.builtin.shell: npm install 
-    args:
-      chdir: /app
+  - name: npm isntalling
+    ansible.builtin.shell: npm install
+    args: 
+      - name: npm isntalling
+    ansible.builtin.shell: npm install
+    args: 
+     chdir: /app
     
   - name: coping user service
     ansible.builtin.copy:

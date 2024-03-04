@@ -39,6 +39,7 @@
     ansible.builtin.systemd_service:
       name: catalogue
       state: reloaded
+    ignore_errors: true
 
   - name: enable and starting catalogue services
     ansible.builtin.service:

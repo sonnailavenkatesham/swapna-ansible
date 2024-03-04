@@ -1,0 +1,62 @@
+- name: installing catalogue component
+  hosts: catalogue
+  become: yes
+  tasks:
+  - name: Setup NodeJS repos
+    ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+  
+  - name: install nodejs
+    ansible.builtin.yum:
+      name: nodejs
+      state: installed
+  
+  - name: Adding user 'roboshop'
+    ansible.builtin.user:
+      name: roboshop
+  
+  - name: create app directory
+    ansible.builtin.file:
+      path: /app
+      state: directory
+  
+  - name: download and unzip catalogue artifact
+    ansible.builtin.unarchive:
+      src: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
+      dest: /app
+      remote_src: yes
+
+  - name: npm isntalling
+    ansible.builtin.shell: npm install 
+
+  - name: copy mongo repo
+    ansible.builtin.copy:
+      src: catalogue.service
+      dest: /etc/systemd/system/catalogue.service
+
+  - name: Daemon reloading catalogue service
+    ansible.builtin.systemd_service:
+      name: catalogue
+      state: reloaded
+
+  - name: enable and starting catalogue services
+    ansible.builtin.service:
+      name: catalogue
+      enabled: yes
+      state: started
+
+  - name: copy mongo repo
+    ansible.builtin.copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
+  
+  - name: installing mongodb-org-shell
+    ansible.builtin.yum:
+      name: mongodb-org-shell
+      state: installed
+  
+  - name: conneting monogdb host
+    ansible.builtin.shell: mongo --host 54.234.156.134 < /app/schema/catalogue.js
+  
+
+
+

@@ -39,7 +39,6 @@
     ansible.builtin.systemd_service:
       name: user
       state: reloaded
-      ignore_errors: true
 
   - name: enable and statring user
     ansible.builtin.service:

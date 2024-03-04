@@ -1,0 +1,65 @@
+- name: installing cart component
+  hosts: cart
+  become: yes
+  tasks:
+  - name: Setup NodeJS repos
+    ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+  
+  - name: install nodejs
+    ansible.builtin.yum:
+      name: nodejs
+      state: installed
+  
+  - name: Adding user 'roboshop'
+    ansible.builtin.user:
+      name: roboshop
+  
+  - name: create app directory
+    ansible.builtin.file:
+      path: /app
+      state: directory
+  
+  - name: download and unzip cart artifact
+    ansible.builtin.unarchive:
+      src: https://roboshop-builds.s3.amazonaws.com/cart.zip
+      dest: /app
+      remote_src: yes
+
+  - name: npm isntalling
+    ansible.builtin.shell: npm install
+    args: 
+     chdir: /app
+
+  - name: copy mongo repo
+    ansible.builtin.copy:
+      src: cart.service
+      dest: /etc/systemd/system/cart.service
+
+  - name: Daemon reloading cart service
+    ansible.builtin.systemd_service:
+      name: cart
+      state: reloaded
+    ignore_errors: true
+
+  - name: enable and starting cart services
+    ansible.builtin.service:
+      name: cart
+      enabled: yes
+      state: started
+
+  - name: copy mongo repo
+    ansible.builtin.copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
+  
+  - name: installing mongodb-org-shell
+    ansible.builtin.yum:
+      name: mongodb-org-shell
+      state: installed
+  
+  - name: conneting monogdb host
+    ansible.builtin.shell: mongo --host mongodb.venkateshamsonnalia143.online </app/schema/cart.js
+  
+
+
+

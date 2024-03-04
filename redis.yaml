@@ -14,7 +14,7 @@
   - name: installing redis 
     ansible.builtin.yum:
       name: redis 
-      state: isntalled
+      state: installed
 
   - name: replacing 127.0.0.1 to 0.0.0.0
     ansible.builtin.replace:

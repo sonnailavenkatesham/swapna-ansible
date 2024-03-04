@@ -47,7 +47,7 @@
       state: started
   
   - name: coping mongo repo
-    ansible.builtin.service:
+    ansible.builtin.copy:
       src: mongo.repo
       dest: /etc/yum.repos.d/mongo.repo
 

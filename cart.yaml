@@ -35,26 +35,11 @@
       src: cart.service
       dest: /etc/systemd/system/cart.service
 
-  - name: enable and starting cart services
+  - name: daemon-reload, enable and starting cart services
     ansible.builtin.systemd_service:
       daemon_reload: true
       name: cart
       enabled: yes
       state: started
-
-  - name: copy mongo repo
-    ansible.builtin.copy:
-      src: mongo.repo
-      dest: /etc/yum.repos.d/mongo.repo
   
-  - name: installing mongodb-org-shell
-    ansible.builtin.yum:
-      name: mongodb-org-shell
-      state: installed
   
-  - name: conneting monogdb host
-    ansible.builtin.shell: mongo --host mongodb.venkateshamsonnalia143.online </app/schema/cart.js
-  
-
-
-
